@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster as Sonner } from "@/components/ui/sonner";
@@ -21,6 +21,10 @@ const App = () => {
   const [language, setLanguage] = useState<"en" | "kh">("en");
 
   const toggleLanguage = () => setLanguage((l) => (l === "en" ? "kh" : "en"));
+
+  useEffect(() => {
+    document.documentElement.lang = language;
+  }, [language]);
 
   return (
     <QueryClientProvider client={queryClient}>

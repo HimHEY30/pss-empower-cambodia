@@ -18,51 +18,51 @@
     --popover-foreground: 225 63% 15%;
 
     /* Deep Blue - Trust & Education */
-    --primary: 225 63% 33%;
+    --primary: 197 100% 44%;
     --primary-foreground: 0 0% 100%;
-    --primary-light: 225 63% 45%;
-    --primary-dark: 225 63% 22%;
+    --primary-light: 197 100% 55%;
+    --primary-dark: 197 100% 32%;
 
     /* Orange - Hope & Energy */
-    --secondary: 25 95% 53%;
+    --secondary: 32 100% 57%;
     --secondary-foreground: 0 0% 100%;
-    --secondary-light: 25 95% 65%;
-    --secondary-dark: 25 95% 40%;
+    --secondary-light: 32 100% 68%;
+    --secondary-dark: 32 100% 45%;
 
     --muted: 210 20% 94%;
     --muted-foreground: 215 20% 50%;
 
-    --accent: 25 95% 95%;
-    --accent-foreground: 25 95% 40%;
+    --accent: 32 100% 95%;
+    --accent-foreground: 32 100% 45%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
     --border: 214 30% 88%;
     --input: 214 30% 92%;
-    --ring: 225 63% 33%;
+    --ring: 197 100% 44%;
 
     --radius: 0.75rem;
 
     /* Sidebar */
-    --sidebar-background: 225 63% 33%;
+    --sidebar-background: 197 100% 44%;
     --sidebar-foreground: 0 0% 100%;
-    --sidebar-primary: 25 95% 53%;
+    --sidebar-primary: 32 100% 57%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 225 63% 25%;
+    --sidebar-accent: 197 100% 36%;
     --sidebar-accent-foreground: 0 0% 100%;
-    --sidebar-border: 225 63% 40%;
-    --sidebar-ring: 25 95% 53%;
+    --sidebar-border: 197 100% 50%;
+    --sidebar-ring: 32 100% 57%;
 
     /* Custom Tokens */
-    --hero-overlay: linear-gradient(135deg, hsl(225 63% 20% / 0.88) 0%, hsl(225 63% 33% / 0.75) 100%);
-    --gradient-primary: linear-gradient(135deg, hsl(225 63% 33%), hsl(225 63% 22%));
-    --gradient-warm: linear-gradient(135deg, hsl(25 95% 53%), hsl(25 95% 40%));
-    --gradient-hero: linear-gradient(160deg, hsl(225 63% 22%) 0%, hsl(225 63% 38%) 50%, hsl(25 95% 45%) 100%);
+    --hero-overlay: linear-gradient(135deg, hsl(197 100% 32% / 0.88) 0%, hsl(197 100% 44% / 0.75) 100%);
+    --gradient-primary: linear-gradient(135deg, hsl(197 100% 44%), hsl(197 100% 32%));
+    --gradient-warm: linear-gradient(135deg, hsl(32 100% 57%), hsl(32 100% 45%));
+    --gradient-hero: linear-gradient(160deg, hsl(197 100% 32%) 0%, hsl(197 100% 48%) 50%, hsl(32 100% 53%) 100%);
     --gradient-subtle: linear-gradient(180deg, hsl(210 20% 98%) 0%, hsl(225 30% 95%) 100%);
-    --shadow-card: 0 4px 20px -4px hsl(225 63% 33% / 0.15);
-    --shadow-primary: 0 8px 30px -8px hsl(225 63% 33% / 0.4);
-    --shadow-warm: 0 8px 30px -8px hsl(25 95% 53% / 0.4);
+    --shadow-card: 0 4px 20px -4px hsl(197 100% 44% / 0.15);
+    --shadow-primary: 0 8px 30px -8px hsl(197 100% 44% / 0.4);
+    --shadow-warm: 0 8px 30px -8px hsl(32 100% 57% / 0.4);
   }
 
   .dark {
@@ -72,19 +72,19 @@
     --card-foreground: 210 40% 98%;
     --popover: 225 63% 12%;
     --popover-foreground: 210 40% 98%;
-    --primary: 225 63% 55%;
+    --primary: 197 100% 55%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 25 95% 53%;
+    --secondary: 32 100% 57%;
     --secondary-foreground: 0 0% 100%;
     --muted: 225 30% 20%;
     --muted-foreground: 215 20% 65%;
-    --accent: 25 95% 20%;
-    --accent-foreground: 25 95% 70%;
+    --accent: 32 100% 20%;
+    --accent-foreground: 32 100% 70%;
     --destructive: 0 62.8% 40%;
     --destructive-foreground: 210 40% 98%;
     --border: 225 30% 20%;
     --input: 225 30% 18%;
-    --ring: 225 63% 55%;
+    --ring: 197 100% 44%;
   }
 }
 
@@ -100,6 +100,22 @@
 
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
+  }
+
+  /* Khmer Language Fonts */
+  html[lang="kh"] body {
+    font-family: 'Battambang', system-ui, sans-serif;
+  }
+
+  html[lang="kh"] h1,
+  html[lang="kh"] h2,
+  html[lang="kh"] h3,
+  html[lang="kh"] h4,
+  html[lang="kh"] h5,
+  html[lang="kh"] h6 {
+    font-family: 'Moul', 'Battambang', system-ui, sans-serif;
+    line-height: 1.4;
+    letter-spacing: 0.02em;
   }
 }
 

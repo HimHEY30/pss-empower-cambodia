@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X, Globe } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import pssLogo from "@/assets/pss_logo.png";
 
 const navLinks = [
   { href: "/", label: "Home", labelKh: "ទំព័រដើម" },
@@ -45,9 +46,11 @@ const Navbar = ({ language, onLanguageToggle }: NavbarProps) => {
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-3 group">
-            <div className="w-10 h-10 rounded-xl bg-secondary flex items-center justify-center shadow-warm font-display font-bold text-secondary-foreground text-sm">
-              PSS
-            </div>
+            <img 
+              src={pssLogo} 
+              alt="PSS Logo" 
+              className="w-10 h-10 object-contain"
+            />
             <div className="hidden sm:block">
               <div className="text-primary-foreground font-display font-bold text-base leading-tight">
                 PSS Cambodia
