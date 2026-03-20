@@ -18,7 +18,7 @@ const About = ({ language }: Props) => {
   const timeline = [
     { year: "2005", title: isKh ? "PNC ត្រូវបានស្ថាបនា" : "PNC Founded", desc: isKh ? "Passerelles Numériques Cambodia ចាប់ផ្តើម" : "Passerelles Numériques Cambodia launches its first IT training program" },
     { year: "2010", title: isKh ? "ពង្រីកកម្មវិធី" : "Program Expansion", desc: isKh ? "ពង្រីកទៅស្រុកបន្ថែម" : "Expanded to reach more rural provinces across Cambodia" },
-    { year: "2019", title: isKh ? "ជោគជ័យ 400+", desc: isKh ? "400+ ស្ថាបត្យករ" : "Over 400 graduates placed in quality employment" },
+    { year: "2019", title: isKh ? "ជោគជ័យ 400+" : "400+ Graduates Employed", desc: isKh ? "400+ ស្ថាបត្យករ" : "Over 400 graduates placed in quality employment" },
     { year: "2025", title: isKh ? "PSS ត្រូវបានបង្កើត" : "PSS Established", desc: isKh ? "PSS បន្តបេសកកម្ម PNC" : "PSS is founded, continuing and expanding PNC's transformative mission" },
   ];
 
