@@ -1,5 +1,15 @@
 import { Link } from "react-router-dom";
-import { Facebook, Twitter, Linkedin, Instagram, Mail, Phone, MapPin, Heart } from "lucide-react";
+import {
+  Facebook,
+  Twitter,
+  Linkedin,
+  Instagram,
+  Mail,
+  Phone,
+  MapPin,
+  Heart,
+} from "lucide-react";
+import pssLogo from "@/assets/pss_logo.png";
 
 interface FooterProps {
   language: "en" | "kh";
@@ -24,7 +34,10 @@ const Footer = ({ language }: FooterProps) => {
                   : "Get the latest news on our programs and student success stories"}
               </p>
             </div>
-            <form className="flex gap-2 w-full md:w-auto" onSubmit={(e) => e.preventDefault()}>
+            <form
+              className="flex gap-2 w-full md:w-auto"
+              onSubmit={(e) => e.preventDefault()}
+            >
               <input
                 type="email"
                 placeholder={isKh ? "អ៊ីមែលរបស់អ្នក" : "Your email address"}
@@ -47,13 +60,21 @@ const Footer = ({ language }: FooterProps) => {
           {/* About */}
           <div className="lg:col-span-1">
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-xl bg-secondary flex items-center justify-center font-display font-bold text-secondary-foreground text-sm">
-                PSS
-              </div>
-              <div>
-                <div className="font-display font-bold text-sm">PSS Cambodia</div>
-                <div className="text-primary-foreground/60 text-xs">Est. 2025</div>
-              </div>
+              <Link to="/" className="flex items-center gap-3 group">
+                <img
+                  src={pssLogo}
+                  alt="PSS Logo"
+                  className="w-10 h-10 object-contain"
+                />
+                <div className="hidden sm:block">
+                  <div className="text-primary-foreground font-display font-bold text-base leading-tight">
+                    PSS Cambodia
+                  </div>
+                  <div className="text-primary-foreground/70 text-xs leading-tight">
+                    Promoting Skills for Success
+                  </div>
+                </div>
+              </Link>
             </div>
             <p className="text-primary-foreground/75 text-sm leading-relaxed mb-5">
               {isKh
@@ -137,13 +158,19 @@ const Footer = ({ language }: FooterProps) => {
               </li>
               <li className="flex items-center gap-3 text-sm text-primary-foreground/75">
                 <Mail className="w-4 h-4 text-secondary shrink-0" />
-                <a href="mailto:info@pss-cambodia.org" className="hover:text-secondary transition-colors">
+                <a
+                  href="mailto:info@pss-cambodia.org"
+                  className="hover:text-secondary transition-colors"
+                >
                   info@pss-cambodia.org
                 </a>
               </li>
               <li className="flex items-center gap-3 text-sm text-primary-foreground/75">
                 <Phone className="w-4 h-4 text-secondary shrink-0" />
-                <a href="tel:+85523000000" className="hover:text-secondary transition-colors">
+                <a
+                  href="tel:+85523000000"
+                  className="hover:text-secondary transition-colors"
+                >
                   +855 23 000 000
                 </a>
               </li>
@@ -155,9 +182,14 @@ const Footer = ({ language }: FooterProps) => {
       {/* Bottom Bar */}
       <div className="border-t border-primary-foreground/15">
         <div className="container mx-auto px-4 py-5 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-primary-foreground/50">
-          <p>© 2025 Promoting Skills for Success (PSS) Cambodia. All rights reserved.</p>
+          <p>
+            © 2025 Promoting Skills for Success (PSS) Cambodia. All rights
+            reserved.
+          </p>
           <p className="flex items-center gap-1.5">
-            Made with <Heart className="w-3 h-3 text-secondary fill-secondary" /> for Cambodian youth
+            Made with{" "}
+            <Heart className="w-3 h-3 text-secondary fill-secondary" /> for
+            Cambodian youth
           </p>
         </div>
       </div>
