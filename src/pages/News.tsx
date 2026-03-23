@@ -1,16 +1,19 @@
 import { Calendar, ArrowRight, Tag } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useLanguage } from "@/hooks/useLanguage";
+import { usePage } from "@/hooks/useApi";
 import heroStudents from "@/assets/hero-students.jpg";
 import aboutTeam from "@/assets/about-team.jpg";
 import studentSuccess1 from "@/assets/student-success-1.jpg";
 import studentSuccess2 from "@/assets/student-success-2.jpg";
 
-interface Props { language: "en" | "kh"; }
-
-const News = ({ language }: Props) => {
+const News = () => {
+  const { language } = useLanguage();
+  const { data: pageData, isLoading, error } = usePage('news');
   const isKh = language === "kh";
 
-  const posts = [
+  // Fallback content if API is not available
+  const fallbackPosts = [
     {
       id: 1,
       img: heroStudents,
@@ -72,6 +75,26 @@ const News = ({ language }: Props) => {
         : "The Agence Française de Développement has awarded PSS a $200,000 grant to expand its reach to rural provinces in 2025.",
     },
   ];
+
+  // Use API data or fallback
+  const page = pageData?.data;
+  const postsSection = page?.sections?.find(s => s.type === 'posts');
+
+  // Use API data or fallback
+  const posts = postsSection?.content?.posts || fallbackPosts;
+
+  if (isLoading) {
+    return (
+      <main className="pt-16">
+        <div className="container mx-auto px-4 py-20">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto"></div>
+            <p className="mt-4 text-muted-foreground">Loading...</p>
+          </div>
+        </div>
+      </main>
+    );
+  }
 
   return (
     <main className="pt-16">

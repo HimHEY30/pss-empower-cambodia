@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { Mail, Phone, MapPin, Send, Facebook, Linkedin, Instagram, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useLanguage } from "@/hooks/useLanguage";
+import { usePage } from "@/hooks/useApi";
 
-interface Props { language: "en" | "kh"; }
-
-const Contact = ({ language }: Props) => {
+const Contact = () => {
+  const { language } = useLanguage();
+  const { data: pageData, isLoading, error } = usePage('contact');
   const isKh = language === "kh";
   const [submitted, setSubmitted] = useState(false);
   const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
@@ -14,6 +16,19 @@ const Contact = ({ language }: Props) => {
     setSubmitted(true);
     setTimeout(() => setSubmitted(false), 4000);
   };
+
+  if (isLoading) {
+    return (
+      <main className="pt-16">
+        <div className="container mx-auto px-4 py-20">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto"></div>
+            <p className="mt-4 text-muted-foreground">Loading...</p>
+          </div>
+        </div>
+      </main>
+    );
+  }
 
   return (
     <main className="pt-16">

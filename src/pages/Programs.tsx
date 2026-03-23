@@ -1,15 +1,18 @@
 import { Link } from "react-router-dom";
 import { ArrowRight, CheckCircle, Clock, BookOpen, Users, Monitor } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useLanguage } from "@/hooks/useLanguage";
+import { usePage } from "@/hooks/useApi";
 import heroStudents from "@/assets/hero-students.jpg";
 import aboutTeam from "@/assets/about-team.jpg";
 
-interface Props { language: "en" | "kh"; }
-
-const Programs = ({ language }: Props) => {
+const Programs = () => {
+  const { language } = useLanguage();
+  const { data: pageData, isLoading, error } = usePage('programs');
   const isKh = language === "kh";
 
-  const curriculum = [
+  // Fallback content if API is not available
+  const fallbackCurriculum = [
     {
       year: isKh ? "ឆ្នាំ ១" : "Year 1",
       color: "primary",
@@ -36,12 +39,34 @@ const Programs = ({ language }: Props) => {
     },
   ];
 
-  const steps = [
+  const fallbackSteps = [
     { num: "01", title: isKh ? "ដាក់ពាក្យ" : "Apply Online", desc: isKh ? "បំពេញពាក្យស្នើ" : "Fill in our online application form with your background" },
     { num: "02", title: isKh ? "ការអានអ្នកដាក់ពាក្យ" : "Selection Test", desc: isKh ? "ធ្វើតេស្ត" : "Take our aptitude and motivation test" },
     { num: "03", title: isKh ? "ការសម្ភាស" : "Interview", desc: isKh ? "ការសម្ភាសសង្ខេប" : "Short interview with our admissions team" },
     { num: "04", title: isKh ? "ចូលរៀន" : "Enroll", desc: isKh ? "ចូលរៀន ២ ឆ្នាំ" : "Begin your 2-year transformative journey with PSS" },
   ];
+
+  // Use API data or fallback
+  const page = pageData?.data;
+  const curriculumSection = page?.sections?.find(s => s.type === 'curriculum');
+  const stepsSection = page?.sections?.find(s => s.type === 'steps');
+
+  // Use API data or fallback
+  const curriculum = curriculumSection?.content?.curriculum || fallbackCurriculum;
+  const steps = stepsSection?.content?.steps || fallbackSteps;
+
+  if (isLoading) {
+    return (
+      <main className="pt-16">
+        <div className="container mx-auto px-4 py-20">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto"></div>
+            <p className="mt-4 text-muted-foreground">Loading...</p>
+          </div>
+        </div>
+      </main>
+    );
+  }
 
   return (
     <main className="pt-16">

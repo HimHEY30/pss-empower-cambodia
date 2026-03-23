@@ -1,14 +1,17 @@
 import { Quote, TrendingUp, Users, Briefcase } from "lucide-react";
+import { useLanguage } from "@/hooks/useLanguage";
+import { usePage } from "@/hooks/useApi";
 import studentSuccess1 from "@/assets/student-success-1.jpg";
 import studentSuccess2 from "@/assets/student-success-2.jpg";
 import aboutTeam from "@/assets/about-team.jpg";
 
-interface Props { language: "en" | "kh"; }
-
-const Impact = ({ language }: Props) => {
+const Impact = () => {
+  const { language } = useLanguage();
+  const { data: pageData, isLoading, error } = usePage('impact');
   const isKh = language === "kh";
 
-  const stories = [
+  // Fallback content if API is not available
+  const fallbackStories = [
     {
       name: "Sophea Meng",
       origin: isKh ? "មកពី Kampong Cham" : "From Kampong Cham Province",
@@ -44,11 +47,33 @@ const Impact = ({ language }: Props) => {
     },
   ];
 
-  const outcomes = [
+  const fallbackOutcomes = [
     { icon: Users, val: "520+", label: isKh ? "សិស្សបានបញ្ចប់" : "Graduates" },
     { icon: Briefcase, val: "87%", label: isKh ? "ត្រូវបានជួលក្នុង 3 ខែ" : "Employed within 3 months" },
     { icon: TrendingUp, val: "3x", label: isKh ? "ប្រាក់ខែខ្ពស់ជាង" : "Average income increase" },
   ];
+
+  // Use API data or fallback
+  const page = pageData?.data;
+  const storiesSection = page?.sections?.find(s => s.type === 'stories');
+  const outcomesSection = page?.sections?.find(s => s.type === 'outcomes');
+
+  // Use API data or fallback
+  const stories = storiesSection?.content?.stories || fallbackStories;
+  const outcomes = outcomesSection?.content?.outcomes || fallbackOutcomes;
+
+  if (isLoading) {
+    return (
+      <main className="pt-16">
+        <div className="container mx-auto px-4 py-20">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto"></div>
+            <p className="mt-4 text-muted-foreground">Loading...</p>
+          </div>
+        </div>
+      </main>
+    );
+  }
 
   return (
     <main className="pt-16">

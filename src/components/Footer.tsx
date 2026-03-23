@@ -9,13 +9,11 @@ import {
   MapPin,
   Heart,
 } from "lucide-react";
+import { useLanguage } from "@/hooks/useLanguage";
 import pssLogo from "@/assets/pss_logo.png";
 
-interface FooterProps {
-  language: "en" | "kh";
-}
-
-const Footer = ({ language }: FooterProps) => {
+const Footer = () => {
+  const { language } = useLanguage();
   const isKh = language === "kh";
 
   return (

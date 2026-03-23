@@ -2,11 +2,11 @@ import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, Users, Briefcase, GraduationCap, TrendingUp, ChevronDown, Quote } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useLanguage } from "@/hooks/useLanguage";
+import { usePage } from "@/hooks/useApi";
 import heroStudents from "@/assets/hero-students.jpg";
 import studentSuccess1 from "@/assets/student-success-1.jpg";
 import studentSuccess2 from "@/assets/student-success-2.jpg";
-
-interface Props { language: "en" | "kh"; }
 
 const useCountUp = (target: number, duration = 2000) => {
   const [count, setCount] = useState(0);
@@ -62,21 +62,33 @@ const StatCard = ({ icon: Icon, value, suffix, label }: { icon: any; value: numb
   );
 };
 
-const Index = ({ language }: Props) => {
+const Index = () => {
+  const { language } = useLanguage();
+  const { data: pageData, isLoading, error } = usePage('home');
   const isKh = language === "kh";
   const s1 = useSectionFade();
   const s2 = useSectionFade();
   const s3 = useSectionFade();
   const s4 = useSectionFade();
 
-  const stats = [
+  // Fallback content if API is not available
+  const fallbackHero = {
+    badge: isKh ? "ស្ថាបនា ២០២៥ — ភ្នំពេញ, កម្ពុជា" : "Established 2025 — Phnom Penh, Cambodia",
+    title: isKh ? "ផ្តល់អំណាចដល់យុវវ័យខ្មែរតាមរយៈជំនាញ" : "Empowering Cambodian Youth Through Skills & Education",
+    subtitle: isKh ? "PSS ផ្តល់ការបណ្តុះបណ្តាល IT ២ ឆ្នាំដល់យុវវ័យខ្មែរដែលខ្វះខាត ដើម្បីបើកឱកាសការងារ" : "PSS provides a 2-year IT training program for underprivileged Cambodian youth — opening pathways to quality employment and a brighter future.",
+    ctaPrimary: isKh ? "បរិច្ចាគឥឡូវ" : "Donate Now",
+    ctaSecondary: isKh ? "ចូលរួមកម្មវិធី" : "Join Program",
+    ctaTertiary: isKh ? "ជាដៃគូ" : "Partner With Us"
+  };
+
+  const fallbackStats = [
     { icon: Users, value: 520, suffix: "+", label: isKh ? "សិស្សបានបណ្តុះបណ្តាល" : "Students Trained" },
     { icon: Briefcase, value: 87, suffix: "%", label: isKh ? "ត្រូវបានជួល" : "Employment Rate" },
     { icon: GraduationCap, value: 18, suffix: "", label: isKh ? "ឆ្នាំនៃបទពិសោធន៍" : "Years of Experience" },
     { icon: TrendingUp, value: 40, suffix: "+", label: isKh ? "ដៃគូក្រុមហ៊ុន" : "Company Partners" },
   ];
 
-  const testimonials = [
+  const fallbackTestimonials = [
     {
       name: "Sophea Meng",
       role: isKh ? "វិស្វករសូហ្វវែរ, Grab Cambodia" : "Software Engineer, Grab Cambodia",
@@ -95,7 +107,7 @@ const Index = ({ language }: Props) => {
     },
   ];
 
-  const programs = [
+  const fallbackPrograms = [
     {
       icon: "💻",
       title: isKh ? "ការអភិវឌ្ឍន៍ Web" : "Web Development",
@@ -112,6 +124,32 @@ const Index = ({ language }: Props) => {
       desc: isKh ? "ការសម្ភាសន៍, ចំណងជើងការងារ" : "Interview prep, resume writing, and job placement",
     },
   ];
+
+  // Use API data or fallback
+  const page = pageData?.data;
+  const heroSection = page?.sections?.find(s => s.type === 'hero');
+  const statsSection = page?.sections?.find(s => s.type === 'stats');
+  const testimonialsSection = page?.sections?.find(s => s.type === 'testimonials');
+  const programsSection = page?.sections?.find(s => s.type === 'programs');
+
+  // Use API data or fallback
+  const hero = heroSection?.content || fallbackHero;
+  const stats = statsSection?.content?.stats || fallbackStats;
+  const testimonials = testimonialsSection?.content?.testimonials || fallbackTestimonials;
+  const programs = programsSection?.content?.programs || fallbackPrograms;
+
+  if (isLoading) {
+    return (
+      <main className="pt-16">
+        <div className="container mx-auto px-4 py-20">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto"></div>
+            <p className="mt-4 text-muted-foreground">Loading...</p>
+          </div>
+        </div>
+      </main>
+    );
+  }
 
   return (
     <main className="pt-16">
@@ -130,7 +168,7 @@ const Index = ({ language }: Props) => {
           <div className="max-w-3xl">
             <div className="inline-flex items-center gap-2 bg-secondary/20 border border-secondary/40 rounded-full px-4 py-1.5 text-secondary text-sm font-medium mb-6 animate-fade-in-up">
               <span className="w-2 h-2 rounded-full bg-secondary animate-count-pulse" />
-              {isKh ? "ស្ថាបនា ២០២៥ — ភ្នំពេញ, កម្ពុជា" : "Established 2025 — Phnom Penh, Cambodia"}
+              {hero.badge}
             </div>
             <h1 className="font-display font-bold text-4xl md:text-6xl text-primary-foreground leading-tight mb-6 animate-fade-in-up" style={{ animationDelay: "0.1s" }}>
               {isKh ? (
@@ -140,25 +178,23 @@ const Index = ({ language }: Props) => {
               )}
             </h1>
             <p className="text-primary-foreground/85 text-lg md:text-xl max-w-xl mb-8 leading-relaxed animate-fade-in-up" style={{ animationDelay: "0.2s" }}>
-              {isKh
-                ? "PSS ផ្តល់ការបណ្តុះបណ្តាល IT ២ ឆ្នាំដល់យុវវ័យខ្មែរដែលខ្វះខាត ដើម្បីបើកឱកាសការងារ"
-                : "PSS provides a 2-year IT training program for underprivileged Cambodian youth — opening pathways to quality employment and a brighter future."}
+              {hero.subtitle}
             </p>
             <div className="flex flex-wrap gap-3 animate-fade-in-up" style={{ animationDelay: "0.3s" }}>
               <Link to="/get-involved">
                 <Button size="lg" className="bg-secondary hover:bg-secondary-dark text-secondary-foreground font-semibold shadow-warm px-7">
-                  {isKh ? "បរិច្ចាគឥឡូវ" : "Donate Now"}
+                  {hero.ctaPrimary}
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </Button>
               </Link>
               <Link to="/programs">
                 <Button size="lg" variant="outline" className="border-primary-foreground/50 text-primary-foreground bg-transparent hover:bg-primary-foreground/15 px-7">
-                  {isKh ? "ចូលរួមកម្មវិធី" : "Join Program"}
+                  {hero.ctaSecondary}
                 </Button>
               </Link>
               <Link to="/about">
                 <Button size="lg" variant="outline" className="border-primary-foreground/30 text-primary-foreground/80 bg-transparent hover:bg-primary-foreground/10 px-7">
-                  {isKh ? "ជាដៃគូ" : "Partner With Us"}
+                  {hero.ctaTertiary}
                 </Button>
               </Link>
             </div>
@@ -170,7 +206,7 @@ const Index = ({ language }: Props) => {
       </section>
 
       {/* STATS */}
-      <section id="stats" ref={s1 as any} className="section-fade py-20 bg-card border-b border-border">
+      <section id="stats" ref={s1 as any} className="py-20 bg-card border-b border-border">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="font-display font-bold text-3xl md:text-4xl text-primary mb-3">
@@ -192,7 +228,7 @@ const Index = ({ language }: Props) => {
       </section>
 
       {/* PROGRAMS */}
-      <section ref={s2 as any} className="section-fade py-20 bg-background khmer-pattern">
+      <section ref={s2 as any} className="py-20 bg-background khmer-pattern">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <span className="text-secondary font-semibold text-sm uppercase tracking-widest">
@@ -228,7 +264,7 @@ const Index = ({ language }: Props) => {
       </section>
 
       {/* TESTIMONIALS */}
-      <section ref={s3 as any} className="section-fade py-20 bg-primary">
+      <section ref={s3 as any} className="py-20 bg-primary">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <span className="text-secondary font-semibold text-sm uppercase tracking-widest">
@@ -268,7 +304,7 @@ const Index = ({ language }: Props) => {
       </section>
 
       {/* DONATION */}
-      <section ref={s4 as any} className="section-fade py-20 bg-card">
+      <section ref={s4 as any} className="py-20 bg-card">
         <div className="container mx-auto px-4">
           <div className="max-w-2xl mx-auto text-center">
             <span className="text-secondary font-semibold text-sm uppercase tracking-widest">

@@ -2,10 +2,12 @@ import { useState } from "react";
 import { Heart, Users, Handshake, Check, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import { useLanguage } from "@/hooks/useLanguage";
+import { usePage } from "@/hooks/useApi";
 
-interface Props { language: "en" | "kh"; }
-
-const GetInvolved = ({ language }: Props) => {
+const GetInvolved = () => {
+  const { language } = useLanguage();
+  const { data: pageData, isLoading, error } = usePage('get-involved');
   const isKh = language === "kh";
   const [donationAmount, setDonationAmount] = useState<number | null>(50);
   const [customAmount, setCustomAmount] = useState("");
@@ -19,13 +21,34 @@ const GetInvolved = ({ language }: Props) => {
     setTimeout(() => setDonated(false), 4000);
   };
 
-  const impacts = [
+  // Fallback content if API is not available
+  const fallbackImpacts = [
     { amount: "$10", impact: isKh ? "ផ្គត់ផ្គង់ textbook ១ ខែ" : "Provides 1 month of textbooks" },
     { amount: "$25", impact: isKh ? "ទ្រទ្រង់ meal ១ ខែ" : "Covers meals for 1 student for a month" },
     { amount: "$50", impact: isKh ? "ទ្រទ្រង់ internet 1 ខែ" : "Funds internet access for a student for a month" },
     { amount: "$100", impact: isKh ? "ស្គ្រីបចំណាយ ១ ខែ" : "Covers monthly scholarship for one student" },
     { amount: "$250", impact: isKh ? "ហ្នឹងគ្រឿងឧបករណ៍" : "Provides a laptop for a student" },
   ];
+
+  // Use API data or fallback
+  const page = pageData?.data;
+  const impactsSection = page?.sections?.find(s => s.type === 'impacts');
+
+  // Use API data or fallback
+  const impacts = impactsSection?.content?.impacts || fallbackImpacts;
+
+  if (isLoading) {
+    return (
+      <main className="pt-16">
+        <div className="container mx-auto px-4 py-20">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto"></div>
+            <p className="mt-4 text-muted-foreground">Loading...</p>
+          </div>
+        </div>
+      </main>
+    );
+  }
 
   return (
     <main className="pt-16">

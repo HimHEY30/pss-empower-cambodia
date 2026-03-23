@@ -2,9 +2,12 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X, Globe } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useLanguage } from "@/hooks/useLanguage";
+import { useMenu } from "@/hooks/useApi";
 import pssLogo from "@/assets/pss_logo.png";
 
-const navLinks = [
+// Fallback navigation links (used when API is not available)
+const fallbackNavLinks = [
   { href: "/", label: "Home", labelKh: "ទំព័រដើម" },
   { href: "/about", label: "About Us", labelKh: "អំពីយើង" },
   { href: "/programs", label: "Programs", labelKh: "កម្មវិធី" },
@@ -14,15 +17,15 @@ const navLinks = [
   { href: "/contact", label: "Contact", labelKh: "ទំនាក់ទំនង" },
 ];
 
-interface NavbarProps {
-  language: "en" | "kh";
-  onLanguageToggle: () => void;
-}
-
-const Navbar = ({ language, onLanguageToggle }: NavbarProps) => {
+const Navbar = () => {
+  const { language, toggleLanguage } = useLanguage();
+  const { data: menuData, isLoading: menuLoading } = useMenu('main');
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
+
+  // Use API menu data or fallback to static links
+  const navLinks = menuData?.items || fallbackNavLinks;
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -46,9 +49,9 @@ const Navbar = ({ language, onLanguageToggle }: NavbarProps) => {
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-3 group">
-            <img 
-              src={pssLogo} 
-              alt="PSS Logo" 
+            <img
+              src={pssLogo}
+              alt="PSS Logo"
               className="w-10 h-10 object-contain"
             />
             <div className="hidden sm:block">
@@ -65,15 +68,15 @@ const Navbar = ({ language, onLanguageToggle }: NavbarProps) => {
           <div className="hidden lg:flex items-center gap-1">
             {navLinks.map((link) => (
               <Link
-                key={link.href}
-                to={link.href}
+                key={link.href || link.url}
+                to={link.href || link.url}
                 className={`px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
-                  location.pathname === link.href
+                  location.pathname === (link.href || link.url)
                     ? "bg-primary-foreground/20 text-primary-foreground"
                     : "text-primary-foreground/80 hover:text-primary-foreground hover:bg-primary-foreground/10"
                 }`}
               >
-                {language === "en" ? link.label : link.labelKh}
+                {link.label || (language === "en" ? link.label : link.labelKh)}
               </Link>
             ))}
           </div>
@@ -82,7 +85,7 @@ const Navbar = ({ language, onLanguageToggle }: NavbarProps) => {
           <div className="flex items-center gap-2">
             {/* Language Toggle */}
             <button
-              onClick={onLanguageToggle}
+              onClick={toggleLanguage}
               className="flex items-center gap-1.5 text-primary-foreground/80 hover:text-primary-foreground text-sm px-2 py-1.5 rounded-lg hover:bg-primary-foreground/10 transition-all"
             >
               <Globe className="w-4 h-4" />
@@ -116,15 +119,15 @@ const Navbar = ({ language, onLanguageToggle }: NavbarProps) => {
             <div className="flex flex-col gap-1">
               {navLinks.map((link) => (
                 <Link
-                  key={link.href}
-                  to={link.href}
+                  key={link.href || link.url}
+                  to={link.href || link.url}
                   className={`px-4 py-2.5 rounded-lg text-sm font-medium transition-all ${
-                    location.pathname === link.href
+                    location.pathname === (link.href || link.url)
                       ? "bg-primary-foreground/20 text-primary-foreground"
                       : "text-primary-foreground/80 hover:text-primary-foreground hover:bg-primary-foreground/10"
                   }`}
                 >
-                  {language === "en" ? link.label : link.labelKh}
+                  {link.label || (language === "en" ? link.label : link.labelKh)}
                 </Link>
               ))}
               <Link to="/get-involved" className="mt-2">
