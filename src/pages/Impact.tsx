@@ -59,10 +59,10 @@ const Impact = ({ language }: Props) => {
             <span className="text-secondary font-semibold text-sm uppercase tracking-widest">
               {isKh ? "ផលប៉ះពាល់" : "Impact & Stories"}
             </span>
-            <h1 className="font-display font-bold text-4xl md:text-5xl mt-2 mb-4">
+            <h1 className="text-primary font-display font-bold text-4xl md:text-5xl mt-2 mb-4">
               {isKh ? "ការផ្លាស់ប្តូរជីវិតជាក់ស្តែង" : "Real Lives, Real Change"}
             </h1>
-            <p className="text-primary-foreground/80 text-lg">
+            <p className="text-muted-foreground text-lg">
               {isKh
                 ? "ស្វែងយល់ពីរបៀបដែល PSS ផ្លាស់ប្តូរជីវិតរបស់យុវវ័យខ្មែរ"
                 : "Discover how PSS is changing lives, families, and communities across Cambodia through education and opportunity."}

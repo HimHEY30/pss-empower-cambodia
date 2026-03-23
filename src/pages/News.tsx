@@ -82,10 +82,10 @@ const News = ({ language }: Props) => {
             <span className="text-secondary font-semibold text-sm uppercase tracking-widest">
               {isKh ? "ព័ត៌មាន" : "News & Updates"}
             </span>
-            <h1 className="font-display font-bold text-4xl md:text-5xl mt-2 mb-4">
+            <h1 className="font-display text-primary font-bold text-4xl md:text-5xl mt-2 mb-4">
               {isKh ? "ការអប់ រំ & ការផ្លាស់ប្ដូរ" : "Stories of Education & Change"}
             </h1>
-            <p className="text-primary-foreground/80 text-lg">
+            <p className="text-muted-foreground text-lg">
               {isKh
                 ? "ព័ត៌មានថ្មីៗ ឱកាស ហើយ ការព្យួររ"
                 : "Stay up to date with our latest news, events, student achievements, and organizational updates."}

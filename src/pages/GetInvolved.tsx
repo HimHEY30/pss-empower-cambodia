@@ -36,10 +36,10 @@ const GetInvolved = ({ language }: Props) => {
             <span className="text-secondary font-semibold text-sm uppercase tracking-widest">
               {isKh ? "ចូលរួម" : "Get Involved"}
             </span>
-            <h1 className="font-display font-bold text-4xl md:text-5xl mt-2 mb-4">
+            <h1 className="text-primary font-display font-bold text-4xl md:text-5xl mt-2 mb-4">
               {isKh ? "ជួយផ្លាស់ប្តូរជីវិត" : "Help Change a Life Today"}
             </h1>
-            <p className="text-primary-foreground/80 text-lg">
+            <p className="text-muted-foreground text-lg">
               {isKh
                 ? "ការជួយរបស់អ្នក ជាការចូលរួមផ្ទាល់ ក្នុងការផ្លាស់ប្តូរជីវិតយុវវ័យខ្មែរ"
                 : "Whether you donate, volunteer, or partner with us — every contribution creates lasting change for Cambodian youth."}

@@ -36,10 +36,10 @@ const About = ({ language }: Props) => {
         <div className="container mx-auto px-4">
           <div className="max-w-2xl">
             <span className="text-secondary font-semibold text-sm uppercase tracking-widest">{isKh ? "អំពីយើង" : "About PSS"}</span>
-            <h1 className="font-display font-bold text-4xl md:text-5xl mt-2 mb-4">
+            <h1 className="text-primary font-display font-bold text-4xl md:text-5xl mt-2 mb-4">
               {isKh ? "ប្រវត្តិ និងបេសកកម្ម" : "Our Story & Mission"}
             </h1>
-            <p className="text-primary-foreground/80 text-lg leading-relaxed">
+            <p className="text-muted-foreground text-lg leading-relaxed">
               {isKh
                 ? "PSS បានបង្កើតក្នុងឆ្នាំ ២០២៥ ដើម្បីបន្តបេសកកម្មរបស់ PNC"
                 : "Founded in 2025, PSS carries forward the transformative legacy of Passerelles Numériques Cambodia, bringing quality IT education to underprivileged Cambodian youth."}

@@ -24,10 +24,10 @@ const Contact = ({ language }: Props) => {
             <span className="text-secondary font-semibold text-sm uppercase tracking-widest">
               {isKh ? "ទំនាក់ទំនង" : "Contact Us"}
             </span>
-            <h1 className="font-display font-bold text-4xl md:text-5xl mt-2 mb-4">
+            <h1 className="font-display text-primary font-bold text-4xl md:text-5xl mt-2 mb-4">
               {isKh ? "សូមទំនាក់ទំនង" : "Get in Touch"}
             </h1>
-            <p className="text-primary-foreground/80 text-lg">
+            <p className="text-muted-foreground text-lg">
               {isKh
                 ? "ការសំណួរ ឬការផ្ដើម — យើងរីករាយទទួល"
                 : "Whether you have questions about our programs, want to donate, or wish to partner — we'd love to hear from you."}
