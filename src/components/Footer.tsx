@@ -19,7 +19,7 @@ const Footer = ({ language }: FooterProps) => {
   const isKh = language === "kh";
 
   return (
-    <footer className="bg-primary text-primary-foreground">
+    <footer className="footer text-primary-foreground">
       {/* Newsletter Strip */}
       <div className="bg-secondary">
         <div className="container mx-auto px-4 py-8">
@@ -97,7 +97,7 @@ const Footer = ({ language }: FooterProps) => {
 
           {/* Quick Links */}
           <div>
-            <h4 className="font-display font-bold text-sm uppercase tracking-wider text-primary-foreground/50 mb-4">
+            <h4 className="font-display font-bold text-sm uppercase tracking-wider text-primary mb-4">
               {isKh ? "តំណភ្ជាប់រហ័ស" : "Quick Links"}
             </h4>
             <ul className="space-y-2.5">
@@ -123,7 +123,7 @@ const Footer = ({ language }: FooterProps) => {
 
           {/* Programs */}
           <div>
-            <h4 className="font-display font-bold text-sm uppercase tracking-wider text-primary-foreground/50 mb-4">
+            <h4 className="font-display font-bold text-sm uppercase tracking-wider text-primary mb-4">
               {isKh ? "កម្មវិធីសិក្សា" : "Programs"}
             </h4>
             <ul className="space-y-2.5">
@@ -148,7 +148,7 @@ const Footer = ({ language }: FooterProps) => {
 
           {/* Contact */}
           <div>
-            <h4 className="font-display font-bold text-sm uppercase tracking-wider text-primary-foreground/50 mb-4">
+            <h4 className="font-display font-bold text-sm uppercase tracking-wider text-primary mb-4">
               {isKh ? "ទំនាក់ទំនង" : "Contact Us"}
             </h4>
             <ul className="space-y-3">
@@ -181,7 +181,7 @@ const Footer = ({ language }: FooterProps) => {
 
       {/* Bottom Bar */}
       <div className="border-t border-primary-foreground/15">
-        <div className="container mx-auto px-4 py-5 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-primary-foreground/50">
+        <div className="container mx-auto px-4 py-5 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-primary">
           <p>
             © 2025 Promoting Skills for Success (PSS) Cambodia. All rights
             reserved.

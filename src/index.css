@@ -227,3 +227,7 @@ html {
   background: hsl(var(--primary));
   border-radius: 3px;
 }
+
+.footer {
+  background: #252525;
+}
